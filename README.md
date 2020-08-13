@@ -1,6 +1,6 @@
 # raspicam-flow
 
-raspicam-flow is a set of NodeRed flows that make it easy to drive the Raspberry Pi HQ Camera module from a web browser.
+raspicam-flow is a set of Node-RED flows that make it easy to drive the Raspberry Pi HQ Camera module from a web browser.
 
 A friend lent me a telescope and I really wanted to try it out with my Raspberry Pi HQ Camera module. Unfortunately there didn't seem to be a lot of options for long exposure web-based interfaces for the Pi HQ Camera... so I threw this together.
 
@@ -11,9 +11,9 @@ Some notes:
  - Video recording functionality hasn't been "implemented".
 
 ## Installation
-You'll need to install NodeRed, either in the host OS or via Docker. If you go the docker route you'll need to follow various guides to allow camera access from within the container.
+You'll need to install Node-RED, either in the host OS or via Docker. If you go the docker route you'll need to follow various guides to allow camera access from within the container.
 
-Once NodeRed is installed, add the following external packages:
+Once Node-RED is installed, add the following external packages:
 
  - node-red-dashboard
  - node-red-node-base64
@@ -32,5 +32,5 @@ The above configuration makes the default context storage persistent via disk. T
 <p align="center">
   <img src="https://github.com/aquarat/raspicam-flow/blob/master/screenshot-browser.png?raw=true" alt="The web browser view."/>
   <br/>
-  <img src="https://github.com/aquarat/raspicam-flow/blob/master/images/screenshot-flow.png?raw=true" alt="The flow."/>
+  <img src="https://github.com/aquarat/raspicam-flow/blob/master/screenshot-flow.png?raw=true" alt="The flow."/>
 </p>
