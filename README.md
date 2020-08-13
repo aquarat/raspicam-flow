@@ -9,6 +9,8 @@ Some notes:
  - It has only been configured and tested with the HQ Camera module.
  - Only some flags from the raspistill utility are exposed.
  - Video recording functionality hasn't been "implemented".
+ - ISO isn't exposed because ISO conflicts with analog and digital gain flags.
+ - The flow uses raspistill directly (os exec with read from stdout).
 
 ## Installation
 You'll need to install Node-RED, either in the host OS or via Docker. If you go the docker route you'll need to follow various guides to allow camera access from within the container.
@@ -29,8 +31,14 @@ You'll also need to add the following configuration to settings.js:
 The above configuration makes the default context storage persistent via disk. This is used for dashboard/UI settings. It also adds a second context store which is memory-only (volatile). The memoryOnly store is used for caching JPEGs.
 
 ## Screenshots
+
+### Browser View (eg. http://10.0.0.86/ui)
 <p align="center">
   <img src="https://github.com/aquarat/raspicam-flow/blob/master/screenshot-browser.png?raw=true" alt="The web browser view."/>
   <br/>
+</p>
+
+### The Flow
+<p align="center">
   <img src="https://github.com/aquarat/raspicam-flow/blob/master/screenshot-flow.png?raw=true" alt="The flow."/>
 </p>
