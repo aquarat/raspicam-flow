@@ -1,0 +1,1503 @@
+[
+    {
+        "id": "33648651.a2695a",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "8e13a15b.3fa0a",
+        "type": "http in",
+        "z": "33648651.a2695a",
+        "name": "",
+        "url": "/raspistill",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 70,
+        "y": 300,
+        "wires": [
+            [
+                "5b5c2bfe.b32284"
+            ]
+        ]
+    },
+    {
+        "id": "a3bb9deb.23df2",
+        "type": "http response",
+        "z": "33648651.a2695a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1830,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "e12441bb.932c3",
+        "type": "function",
+        "z": "33648651.a2695a",
+        "name": "Set HTTP Headers",
+        "func": "if (msg.req && msg.res) {\n\nmsg.headers = {};\nmsg.headers[\"Content-Type\"] = \"image/jpeg\";\nmsg.headers[\"Content-Disposition\"] = \"inline\";\n\n\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1290,
+        "y": 420,
+        "wires": [
+            [
+                "a3bb9deb.23df2"
+            ]
+        ]
+    },
+    {
+        "id": "e5935342.56bf6",
+        "type": "exec",
+        "z": "33648651.a2695a",
+        "command": "",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "1500",
+        "oldrc": false,
+        "name": "raspistill",
+        "x": 980,
+        "y": 340,
+        "wires": [
+            [
+                "e12441bb.932c3",
+                "88f555b3.09ca68",
+                "447ea544.f3ee1c",
+                "c7eb6fcb.bfc0e",
+                "26481fd5.b3e86",
+                "70e29a60.3c8b74"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "78f5a1ec.1dce3",
+        "type": "ui_slider",
+        "z": "33648651.a2695a",
+        "name": "analoggain",
+        "label": "Analog Gain",
+        "tooltip": "",
+        "group": "b8c15a5e.9c29f8",
+        "order": 4,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "outs": "all",
+        "topic": "analoggain",
+        "min": "1.0",
+        "max": "16.0",
+        "step": "1.0",
+        "x": 690,
+        "y": 820,
+        "wires": [
+            [
+                "960886f7.c4df18",
+                "237d9c0f.8b6aa4"
+            ]
+        ]
+    },
+    {
+        "id": "5b44dd2e.fc21d4",
+        "type": "ui_slider",
+        "z": "33648651.a2695a",
+        "name": "digitalgain",
+        "label": "Digital Gain",
+        "tooltip": "Digital and Analog Gain affect ISO",
+        "group": "b8c15a5e.9c29f8",
+        "order": 1,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "outs": "all",
+        "topic": "digitalgain",
+        "min": "1",
+        "max": "64",
+        "step": 1,
+        "x": 680,
+        "y": 880,
+        "wires": [
+            [
+                "960886f7.c4df18",
+                "7e8d7132.b57a7"
+            ]
+        ]
+    },
+    {
+        "id": "9f9feb5e.6466d8",
+        "type": "ui_dropdown",
+        "z": "33648651.a2695a",
+        "name": "mode",
+        "label": "Sensor Mode",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "b8c15a5e.9c29f8",
+        "order": 25,
+        "width": 10,
+        "height": 1,
+        "passthru": false,
+        "multiple": false,
+        "options": [
+            {
+                "label": "auto",
+                "value": "0",
+                "type": "str"
+            },
+            {
+                "label": "2028x1080 2x2 binned 169:90",
+                "value": "1 -w 2028 -h 1080",
+                "type": "str"
+            },
+            {
+                "label": "2028x1520 2x2 binned 4:3",
+                "value": "2 -w 2028 -h 1520",
+                "type": "str"
+            },
+            {
+                "label": "4056x3040 No Binning 4:3",
+                "value": "3 -w 4056 -h 3040",
+                "type": "str"
+            },
+            {
+                "label": "1012x760 4x4 Scaled 4:3",
+                "value": "4 -w 1012 -h 760",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "mode",
+        "x": 670,
+        "y": 940,
+        "wires": [
+            [
+                "960886f7.c4df18"
+            ]
+        ]
+    },
+    {
+        "id": "64481156.a8502",
+        "type": "ui_slider",
+        "z": "33648651.a2695a",
+        "name": "quality",
+        "label": "Quality",
+        "tooltip": "",
+        "group": "b8c15a5e.9c29f8",
+        "order": 19,
+        "width": 7,
+        "height": 1,
+        "passthru": false,
+        "outs": "all",
+        "topic": "quality",
+        "min": 0,
+        "max": "100",
+        "step": 1,
+        "x": 670,
+        "y": 980,
+        "wires": [
+            [
+                "960886f7.c4df18",
+                "f862a203.1ed1c"
+            ]
+        ]
+    },
+    {
+        "id": "a88cd3e.164053",
+        "type": "ui_switch",
+        "z": "33648651.a2695a",
+        "name": "raw",
+        "label": "RAW",
+        "tooltip": "",
+        "group": "b8c15a5e.9c29f8",
+        "order": 23,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "decouple": "false",
+        "topic": "raw",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 670,
+        "y": 1060,
+        "wires": [
+            [
+                "960886f7.c4df18"
+            ]
+        ]
+    },
+    {
+        "id": "fda81277.9c3d3",
+        "type": "ui_dropdown",
+        "z": "33648651.a2695a",
+        "name": "awb",
+        "label": "AWB",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "b8c15a5e.9c29f8",
+        "order": 11,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "multiple": false,
+        "options": [
+            {
+                "label": "off",
+                "value": "off",
+                "type": "str"
+            },
+            {
+                "label": "auto",
+                "value": "auto",
+                "type": "str"
+            },
+            {
+                "label": "sun",
+                "value": "sun",
+                "type": "str"
+            },
+            {
+                "label": "cloud",
+                "value": "cloud",
+                "type": "str"
+            },
+            {
+                "label": "shade",
+                "value": "shade",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "awb",
+        "x": 670,
+        "y": 1100,
+        "wires": [
+            [
+                "960886f7.c4df18"
+            ]
+        ]
+    },
+    {
+        "id": "fc7fe305.19286",
+        "type": "ui_dropdown",
+        "z": "33648651.a2695a",
+        "name": "flicker",
+        "label": "flicker",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "b8c15a5e.9c29f8",
+        "order": 14,
+        "width": 3,
+        "height": 1,
+        "passthru": false,
+        "multiple": false,
+        "options": [
+            {
+                "label": "off",
+                "value": "off",
+                "type": "str"
+            },
+            {
+                "label": "auto",
+                "value": "auto",
+                "type": "str"
+            },
+            {
+                "label": "50hz",
+                "value": "50hz",
+                "type": "str"
+            },
+            {
+                "label": "60hz",
+                "value": "60hz",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "flicker",
+        "x": 670,
+        "y": 1140,
+        "wires": [
+            [
+                "960886f7.c4df18"
+            ]
+        ]
+    },
+    {
+        "id": "87c3b5a2.420b88",
+        "type": "ui_dropdown",
+        "z": "33648651.a2695a",
+        "name": "shutter",
+        "label": "Shutter Speed",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "b8c15a5e.9c29f8",
+        "order": 6,
+        "width": 10,
+        "height": 1,
+        "passthru": false,
+        "multiple": false,
+        "options": [
+            {
+                "label": "239",
+                "value": "239000000",
+                "type": "str"
+            },
+            {
+                "label": "200",
+                "value": 200000000,
+                "type": "num"
+            },
+            {
+                "label": "150",
+                "value": "150000000",
+                "type": "str"
+            },
+            {
+                "label": "100",
+                "value": "100000000",
+                "type": "str"
+            },
+            {
+                "label": "75",
+                "value": "75000000",
+                "type": "str"
+            },
+            {
+                "label": "50",
+                "value": "50000000",
+                "type": "str"
+            },
+            {
+                "label": "25",
+                "value": "25000000",
+                "type": "str"
+            },
+            {
+                "label": "20",
+                "value": "20000000",
+                "type": "str"
+            },
+            {
+                "label": "15",
+                "value": "15000000",
+                "type": "str"
+            },
+            {
+                "label": "10",
+                "value": "10000000",
+                "type": "str"
+            },
+            {
+                "label": "5",
+                "value": "5000000",
+                "type": "str"
+            },
+            {
+                "label": "4",
+                "value": "4000000",
+                "type": "str"
+            },
+            {
+                "label": "3",
+                "value": "3000000",
+                "type": "str"
+            },
+            {
+                "label": "2",
+                "value": "2000000",
+                "type": "str"
+            },
+            {
+                "label": "1",
+                "value": "1000000",
+                "type": "str"
+            },
+            {
+                "label": "0.9",
+                "value": "900000",
+                "type": "str"
+            },
+            {
+                "label": "0.75",
+                "value": "750000",
+                "type": "str"
+            },
+            {
+                "label": "0.6",
+                "value": "600000",
+                "type": "str"
+            },
+            {
+                "label": "1/5",
+                "value": "200000",
+                "type": "str"
+            },
+            {
+                "label": "1/10",
+                "value": "100000",
+                "type": "str"
+            },
+            {
+                "label": "1/15",
+                "value": "66666",
+                "type": "str"
+            },
+            {
+                "label": "1/20",
+                "value": "50000",
+                "type": "str"
+            },
+            {
+                "label": "1/30",
+                "value": "33333",
+                "type": "str"
+            },
+            {
+                "label": "1/50",
+                "value": "20000",
+                "type": "str"
+            },
+            {
+                "label": "1/100",
+                "value": "10000",
+                "type": "str"
+            },
+            {
+                "label": "1/200",
+                "value": "5000",
+                "type": "str"
+            },
+            {
+                "label": "1/400",
+                "value": "2500",
+                "type": "str"
+            },
+            {
+                "label": "1/800",
+                "value": "1250",
+                "type": "str"
+            },
+            {
+                "label": "1/1600",
+                "value": "625",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "shutter",
+        "x": 670,
+        "y": 1180,
+        "wires": [
+            [
+                "960886f7.c4df18"
+            ]
+        ]
+    },
+    {
+        "id": "1489e0e3.f8d68f",
+        "type": "ui_dropdown",
+        "z": "33648651.a2695a",
+        "name": "drc",
+        "label": "Dynamic Range Compression",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "b8c15a5e.9c29f8",
+        "order": 13,
+        "width": 6,
+        "height": 1,
+        "passthru": false,
+        "multiple": false,
+        "options": [
+            {
+                "label": "off",
+                "value": "off",
+                "type": "str"
+            },
+            {
+                "label": "low",
+                "value": "low",
+                "type": "str"
+            },
+            {
+                "label": "medium",
+                "value": "med",
+                "type": "str"
+            },
+            {
+                "label": "high",
+                "value": "high",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "drc",
+        "x": 670,
+        "y": 780,
+        "wires": [
+            [
+                "960886f7.c4df18"
+            ]
+        ]
+    },
+    {
+        "id": "2649c988.a6b5f6",
+        "type": "ui_dropdown",
+        "z": "33648651.a2695a",
+        "name": "exposure",
+        "label": "Exposure",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "b8c15a5e.9c29f8",
+        "order": 7,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "multiple": false,
+        "options": [
+            {
+                "label": "off",
+                "value": "off",
+                "type": "str"
+            },
+            {
+                "label": "auto",
+                "value": "auto",
+                "type": "str"
+            },
+            {
+                "label": "nightpreview",
+                "value": "nightpreview",
+                "type": "str"
+            },
+            {
+                "label": "verylong",
+                "value": "verylong",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "exposure",
+        "x": 680,
+        "y": 740,
+        "wires": [
+            [
+                "960886f7.c4df18"
+            ]
+        ]
+    },
+    {
+        "id": "960886f7.c4df18",
+        "type": "function",
+        "z": "33648651.a2695a",
+        "name": "Store UI state changes",
+        "func": "const ctx = \"uiCtx\";\nlet uiContext = global.get(ctx);\n\nif (!uiContext) {\n    uiContext = {};\n}\n\n// if (msg.payload[\"_msgid\"]) {\n//     return null;\n// // uiContext[msg.topic] = msg.payload.payload;    \n// } else {\nuiContext[msg.topic] = msg.payload;\n// }\n\n// delete uiContext[\"shutterspeed\"];\n// delete uiContext[\"analoggain\"];\n// uiContext[\"analoggain\"] = 12.0;\ndelete uiContext[\"ISO\"];\nglobal.set(ctx, uiContext);\n\nreturn uiContext;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1660,
+        "y": 900,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8fa2ab85.e6d368",
+        "type": "inject",
+        "z": "33648651.a2695a",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "1",
+        "topic": "",
+        "x": 110,
+        "y": 1000,
+        "wires": [
+            [
+                "721b394f.7dc428"
+            ]
+        ]
+    },
+    {
+        "id": "721b394f.7dc428",
+        "type": "function",
+        "z": "33648651.a2695a",
+        "name": "",
+        "func": "const ctx = \"uiCtx\";\n// global.set(ctx, {});\nconst uiContext = global.get(ctx);\n\nif (!uiContext) {\n    return null;\n}\n\nmsgs = [];\n\nfor (const [key, value] of Object.entries(uiContext)) {\n  msgs.push({\n      topic: key,\n      payload: value,\n  });\n}\n\nreturn msgs;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 300,
+        "y": 1000,
+        "wires": [
+            [
+                "c28d20f1.52b41"
+            ]
+        ]
+    },
+    {
+        "id": "c28d20f1.52b41",
+        "type": "switch",
+        "z": "33648651.a2695a",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "exposure",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "drc",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "analoggain",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "digitalgain",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "mode",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "quality",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "raw",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "awb",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "flicker",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "shutter",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "focus",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 11,
+        "x": 490,
+        "y": 1000,
+        "wires": [
+            [
+                "2649c988.a6b5f6"
+            ],
+            [
+                "1489e0e3.f8d68f"
+            ],
+            [
+                "78f5a1ec.1dce3"
+            ],
+            [
+                "5b44dd2e.fc21d4"
+            ],
+            [
+                "9f9feb5e.6466d8"
+            ],
+            [
+                "64481156.a8502"
+            ],
+            [
+                "a88cd3e.164053"
+            ],
+            [
+                "fda81277.9c3d3"
+            ],
+            [
+                "fc7fe305.19286"
+            ],
+            [
+                "87c3b5a2.420b88"
+            ],
+            [
+                "30871c6a.e14154"
+            ]
+        ]
+    },
+    {
+        "id": "58e4996e.96ca88",
+        "type": "function",
+        "z": "33648651.a2695a",
+        "name": "Map keys to exec flags",
+        "func": "const ctx = \"uiCtx\";\nconst uiContext = global.get(ctx);\n\n// if (!uiContext) {\n//     return null;\n// }\n\nmsg.payload = \"raspistill -n -v -o - -t 1 \";\n\nfor (let [key, value] of Object.entries(uiContext)) {\n    if (key.charAt(0) === 'X') {\n        continue;\n    }\n    // if (key !== \"ISO\" && key !== \"shutter\") {\n    //     continue;\n    // }\n    if (key !== \"_msgid\") {\n        if (value === true || value === false) { // boolean\n            if (value) {\n                msg.payload = msg.payload + \" --\" + key + \" \";\n            }\n        } else {\n                msg.payload = msg.payload + \" --\" + key + \" \" + value;\n        }\n    }\n}\n\nmsg.payload = msg.payload + \" \";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 760,
+        "y": 340,
+        "wires": [
+            [
+                "e5935342.56bf6"
+            ]
+        ]
+    },
+    {
+        "id": "5b5c2bfe.b32284",
+        "type": "change",
+        "z": "33648651.a2695a",
+        "name": "",
+        "rules": [
+            {
+                "t": "delete",
+                "p": "payload",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 250,
+        "y": 300,
+        "wires": [
+            [
+                "d7a51e77.c3001"
+            ]
+        ]
+    },
+    {
+        "id": "be7af041.1565c",
+        "type": "http in",
+        "z": "33648651.a2695a",
+        "name": "",
+        "url": "/cached",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "533907de.bee878"
+            ]
+        ]
+    },
+    {
+        "id": "f6de652.0c4e198",
+        "type": "http response",
+        "z": "33648651.a2695a",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1810,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "533907de.bee878",
+        "type": "function",
+        "z": "33648651.a2695a",
+        "name": "Get Cached JPEG",
+        "func": "const ctx = \"jpegCtx\";\nconst storeName = \"memoryOnly\";\n// global.set(ctx, {});\nconst content = global.get(ctx, storeName);\n\nmsg.payload = content; \n\nmsg.headers = {};\nmsg.headers[\"Content-Type\"] = \"image/jpeg\";\nmsg.headers[\"Content-Disposition\"] = \"inline\";\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 970,
+        "y": 80,
+        "wires": [
+            [
+                "f6de652.0c4e198"
+            ]
+        ]
+    },
+    {
+        "id": "88f555b3.09ca68",
+        "type": "function",
+        "z": "33648651.a2695a",
+        "name": "Set Cached JPEG",
+        "func": "const ctx = \"jpegCtx\";\nconst storeName = \"memoryOnly\";\n// global.set(ctx, {});\nglobal.set(ctx, msg.payload, storeName);\n\nreturn msg;",
+        "outputs": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 970,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "74e6909f.f99fe",
+        "type": "ui_switch",
+        "z": "33648651.a2695a",
+        "name": "update",
+        "label": "Continuous Update",
+        "tooltip": "",
+        "group": "b8c15a5e.9c29f8",
+        "order": 9,
+        "width": 4,
+        "height": 1,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "update",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 270,
+        "y": 520,
+        "wires": [
+            [
+                "c5966cdf.41129"
+            ]
+        ]
+    },
+    {
+        "id": "e63ce6c3.cd0008",
+        "type": "link in",
+        "z": "33648651.a2695a",
+        "name": "Back to Continuous Update",
+        "links": [
+            "447ea544.f3ee1c",
+            "8db64107.1ba5d"
+        ],
+        "x": 75,
+        "y": 560,
+        "wires": [
+            [
+                "74e6909f.f99fe"
+            ]
+        ]
+    },
+    {
+        "id": "447ea544.f3ee1c",
+        "type": "link out",
+        "z": "33648651.a2695a",
+        "name": "",
+        "links": [
+            "e63ce6c3.cd0008"
+        ],
+        "x": 1075,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "c5966cdf.41129",
+        "type": "function",
+        "z": "33648651.a2695a",
+        "name": "",
+        "func": "if (msg.payload) {\nreturn msg;\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 400,
+        "y": 520,
+        "wires": [
+            [
+                "d7a51e77.c3001"
+            ]
+        ]
+    },
+    {
+        "id": "d7a51e77.c3001",
+        "type": "function",
+        "z": "33648651.a2695a",
+        "name": "Set Request Start",
+        "func": "try {\nlet timingObj = global.get(\"raspistill-start\");\n\nif (!timingObj) {\n    timingObj = {end: 0, start: 0, delta: 0};\n}\n\ntimingObj.start = Date.now();\n\nglobal.set(\"raspistill-start\", timingObj);\n} catch (e) {\n\n}\n\nmsg.timing = global.get(\"raspistill-start\");\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 530,
+        "y": 340,
+        "wires": [
+            [
+                "58e4996e.96ca88"
+            ]
+        ]
+    },
+    {
+        "id": "26481fd5.b3e86",
+        "type": "function",
+        "z": "33648651.a2695a",
+        "name": "Calculate Request End",
+        "func": "const timingObj = global.get(\"raspistill-start\");\n\ntimingObj.end = Date.now();\ntimingObj.delta = timingObj.end - timingObj.start;\n\nglobal.set(\"raspistill-start\", timingObj);\n\nmsg.payload = timingObj;\n\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1300,
+        "y": 520,
+        "wires": [
+            [
+                "10c532e.1134bcd"
+            ]
+        ]
+    },
+    {
+        "id": "134b7431.8018fc",
+        "type": "template",
+        "z": "33648651.a2695a",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<img width=\"100%\" src=\"data:image/jpg;base64,{{{payload}}}\">",
+        "output": "str",
+        "x": 1560,
+        "y": 260,
+        "wires": [
+            [
+                "3163dccb.ee6af4"
+            ]
+        ]
+    },
+    {
+        "id": "3163dccb.ee6af4",
+        "type": "ui_template",
+        "z": "33648651.a2695a",
+        "group": "b8c15a5e.9c29f8",
+        "name": "",
+        "order": 3,
+        "width": 20,
+        "height": 12,
+        "format": "<div style=\"width: 100%\" ng-bind-html=\"msg.payload\"></div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "x": 1690,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c7eb6fcb.bfc0e",
+        "type": "base64",
+        "z": "33648651.a2695a",
+        "name": "",
+        "action": "str",
+        "property": "payload",
+        "x": 1260,
+        "y": 260,
+        "wires": [
+            [
+                "134b7431.8018fc",
+                "900f101a.3fd0a"
+            ]
+        ]
+    },
+    {
+        "id": "f212b4e9.a2be38",
+        "type": "ui_text",
+        "z": "33648651.a2695a",
+        "group": "b8c15a5e.9c29f8",
+        "order": 16,
+        "width": 9,
+        "height": 1,
+        "name": "last_exposure_delta",
+        "label": "Last Exposure Process Duration",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "x": 1740,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "10c532e.1134bcd",
+        "type": "function",
+        "z": "33648651.a2695a",
+        "name": "",
+        "func": "Date.prototype.timeNow = function () {\n     return ((this.getHours() < 10)?\"0\":\"\") + this.getHours() +\":\"+ ((this.getMinutes() < 10)?\"0\":\"\") + this.getMinutes() +\":\"+ ((this.getSeconds() < 10)?\"0\":\"\") + this.getSeconds();\n}\n\nreturn [\n    {payload: (msg.payload.delta/1000) + \" s\"},\n    {payload: new Date().timeNow()}\n    ];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1500,
+        "y": 520,
+        "wires": [
+            [
+                "f212b4e9.a2be38"
+            ],
+            [
+                "7d886554.68674c"
+            ]
+        ]
+    },
+    {
+        "id": "f862a203.1ed1c",
+        "type": "ui_text",
+        "z": "33648651.a2695a",
+        "group": "b8c15a5e.9c29f8",
+        "order": 20,
+        "width": 3,
+        "height": 1,
+        "name": "quality label",
+        "label": "Quality",
+        "format": "{{msg.payload}} %",
+        "layout": "row-left",
+        "x": 870,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "237d9c0f.8b6aa4",
+        "type": "ui_text",
+        "z": "33648651.a2695a",
+        "group": "b8c15a5e.9c29f8",
+        "order": 5,
+        "width": 3,
+        "height": 1,
+        "name": "ag",
+        "label": "",
+        "format": "{{msg.payload}} dB",
+        "layout": "row-left",
+        "x": 850,
+        "y": 860,
+        "wires": []
+    },
+    {
+        "id": "7e8d7132.b57a7",
+        "type": "ui_text",
+        "z": "33648651.a2695a",
+        "group": "b8c15a5e.9c29f8",
+        "order": 2,
+        "width": 3,
+        "height": 1,
+        "name": "dg",
+        "label": "",
+        "format": "{{msg.payload}} dB",
+        "layout": "row-left",
+        "x": 850,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "b77a5080.5e5c5",
+        "type": "inject",
+        "z": "33648651.a2695a",
+        "name": "",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 520,
+        "wires": [
+            [
+                "74e6909f.f99fe"
+            ]
+        ]
+    },
+    {
+        "id": "447c1b41.01f644",
+        "type": "ui_text",
+        "z": "33648651.a2695a",
+        "group": "b8c15a5e.9c29f8",
+        "order": 21,
+        "width": 3,
+        "height": 1,
+        "name": "Size",
+        "label": "Image Size",
+        "format": "{{msg.payload}} MB",
+        "layout": "row-spread",
+        "x": 1710,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "900f101a.3fd0a",
+        "type": "function",
+        "z": "33648651.a2695a",
+        "name": "",
+        "func": "\nreturn {payload: Math.round(msg.payload.length/1024/1024,2)};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1570,
+        "y": 360,
+        "wires": [
+            [
+                "447c1b41.01f644"
+            ]
+        ]
+    },
+    {
+        "id": "6174d66d.c032a8",
+        "type": "ui_button",
+        "z": "33648651.a2695a",
+        "name": "oneshot",
+        "group": "b8c15a5e.9c29f8",
+        "order": 30,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "One Shot",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "bleh",
+        "payloadType": "str",
+        "topic": "bleh",
+        "x": 260,
+        "y": 360,
+        "wires": [
+            [
+                "d7a51e77.c3001"
+            ]
+        ]
+    },
+    {
+        "id": "30871c6a.e14154",
+        "type": "ui_switch",
+        "z": "33648651.a2695a",
+        "name": "Xtimelapse",
+        "label": "Timelapse",
+        "tooltip": "",
+        "group": "b8c15a5e.9c29f8",
+        "order": 27,
+        "width": 4,
+        "height": 1,
+        "passthru": false,
+        "decouple": "false",
+        "topic": "Xtimelapse",
+        "style": "",
+        "onvalue": "true",
+        "onvalueType": "bool",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "false",
+        "offvalueType": "bool",
+        "officon": "",
+        "offcolor": "",
+        "x": 690,
+        "y": 1260,
+        "wires": [
+            [
+                "960886f7.c4df18",
+                "8db64107.1ba5d"
+            ]
+        ]
+    },
+    {
+        "id": "70e29a60.3c8b74",
+        "type": "function",
+        "z": "33648651.a2695a",
+        "name": "Timelapse",
+        "func": "const ctx = \"uiCtx\";\n// global.set(ctx, {});\nconst uiContext = global.get(ctx);\n\nif (!uiContext) {\n    return null;\n}\n\nmsg.filename = \"/mnt/timelapse/\" + Date.now() + \".jpg\";\n\nif (uiContext.Xtimelapse) {\n    return msg;\n}\n\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1210,
+        "y": 180,
+        "wires": [
+            [
+                "83b49c03.a31b7"
+            ]
+        ]
+    },
+    {
+        "id": "83b49c03.a31b7",
+        "type": "file",
+        "z": "33648651.a2695a",
+        "name": "",
+        "filename": "",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "binary",
+        "x": 1390,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "890bd40c.ec2398",
+        "type": "exec",
+        "z": "33648651.a2695a",
+        "command": "/bin/bash -c \"df -h | grep /dev/root\"",
+        "addpay": false,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "5",
+        "oldrc": false,
+        "name": "df",
+        "x": 1350,
+        "y": 700,
+        "wires": [
+            [
+                "d2af0850.7983f8",
+                "d6244b56.f134f8"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "175f827f.61843e",
+        "type": "ui_text",
+        "z": "33648651.a2695a",
+        "group": "b8c15a5e.9c29f8",
+        "order": 28,
+        "width": 4,
+        "height": 1,
+        "name": "",
+        "label": "Disk Space Free",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1720,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "d2af0850.7983f8",
+        "type": "function",
+        "z": "33648651.a2695a",
+        "name": "",
+        "func": "const dfMsg = String(msg.payload).split(' ');\nconst diskFree = dfMsg[11];\nconst usePercentage = dfMsg[14];\n\nreturn [{payload: diskFree, debug: dfMsg, debugT: msg}, {payload: usePercentage}];",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 1520,
+        "y": 700,
+        "wires": [
+            [
+                "175f827f.61843e",
+                "d6244b56.f134f8"
+            ],
+            [
+                "8952f96e.d66458",
+                "d6244b56.f134f8"
+            ]
+        ]
+    },
+    {
+        "id": "9aea5ada.af99b8",
+        "type": "inject",
+        "z": "33648651.a2695a",
+        "name": "",
+        "props": [],
+        "repeat": "15",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 1210,
+        "y": 700,
+        "wires": [
+            [
+                "890bd40c.ec2398"
+            ]
+        ]
+    },
+    {
+        "id": "8952f96e.d66458",
+        "type": "ui_text",
+        "z": "33648651.a2695a",
+        "group": "b8c15a5e.9c29f8",
+        "order": 29,
+        "width": 4,
+        "height": 1,
+        "name": "Disk Usage",
+        "label": "Disk Usage",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1710,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "d6244b56.f134f8",
+        "type": "debug",
+        "z": "33648651.a2695a",
+        "name": "df",
+        "active": true,
+        "tosidebar": true,
+        "console": true,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1590,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "8db64107.1ba5d",
+        "type": "link out",
+        "z": "33648651.a2695a",
+        "name": "",
+        "links": [
+            "e63ce6c3.cd0008"
+        ],
+        "x": 905,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "7d886554.68674c",
+        "type": "ui_text",
+        "z": "33648651.a2695a",
+        "group": "b8c15a5e.9c29f8",
+        "order": 26,
+        "width": 8,
+        "height": 1,
+        "name": "",
+        "label": "Last Shot Completed At",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "x": 1750,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "af49f5d6.f2c9c8",
+        "type": "comment",
+        "z": "33648651.a2695a",
+        "name": "Disk Space",
+        "info": "",
+        "x": 1190,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "c79a0aac.741d78",
+        "type": "comment",
+        "z": "33648651.a2695a",
+        "name": "Capture Parameters UI Integration",
+        "info": "",
+        "x": 180,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "c6ec0bdb.0e2238",
+        "type": "comment",
+        "z": "33648651.a2695a",
+        "name": "HTTP Handler: Cached Image",
+        "info": "",
+        "x": 160,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "896655cf.5396c8",
+        "type": "comment",
+        "z": "33648651.a2695a",
+        "name": "Timelapse: If we're in TL mode we save the JPEGs to files",
+        "info": "",
+        "x": 1350,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "7d233aee.709584",
+        "type": "comment",
+        "z": "33648651.a2695a",
+        "name": "Report size of image to browser UI",
+        "info": "",
+        "x": 1640,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "b2830c.a0f5bcf8",
+        "type": "comment",
+        "z": "33648651.a2695a",
+        "name": "Encode JPEG for browser UI",
+        "info": "",
+        "x": 1620,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "f0f9c789.81dc68",
+        "type": "comment",
+        "z": "33648651.a2695a",
+        "name": "Report capture timing to browser UI",
+        "info": "",
+        "x": 1340,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "ab6c979f.dd1f68",
+        "type": "comment",
+        "z": "33648651.a2695a",
+        "name": "Handle continuous updates",
+        "info": "",
+        "x": 150,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "b8c15a5e.9c29f8",
+        "type": "ui_group",
+        "z": "",
+        "name": "Default",
+        "tab": "706c8515.70ea8c",
+        "order": 1,
+        "disp": false,
+        "width": "30",
+        "collapse": false
+    },
+    {
+        "id": "706c8515.70ea8c",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Camera Interface",
+        "icon": "camera",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
